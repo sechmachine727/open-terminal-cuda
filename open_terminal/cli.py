@@ -50,6 +50,13 @@ def run(host: str, port: int, cwd: str | None, api_key: str, cors_allowed_origin
     if cwd:
         os.chdir(cwd)
 
+    # Support Docker secrets: load from _FILE variant if no key was given
+    if not api_key:
+        file_path = os.environ.get("OPEN_TERMINAL_API_KEY_FILE")
+        if file_path:
+            with open(file_path) as f:
+                api_key = f.read().strip()
+
     generated = not api_key
     if not api_key:
         api_key = secrets.token_urlsafe(24)

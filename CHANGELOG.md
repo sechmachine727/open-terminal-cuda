@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.4.3] - 2026-03-02
+
+### Added
+
+- 🔐 **Docker secrets support** — set OPEN_TERMINAL_API_KEY_FILE to load the API key from a file (e.g. /run/secrets/...), following the convention used by the official PostgreSQL Docker image.
+
 ## [0.4.2] - 2026-03-02
 
 ### Added
