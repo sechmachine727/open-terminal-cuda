@@ -69,7 +69,7 @@ async def verify_api_key(
 app = FastAPI(
     title="Open Terminal",
     description="A remote terminal API.",
-    version="0.5.0",
+    version="0.7.1",
 )
 app.add_middleware(
     CORSMiddleware,
