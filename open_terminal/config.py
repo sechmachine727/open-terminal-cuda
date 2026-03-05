@@ -4,9 +4,9 @@ Settings are resolved with this precedence (highest wins):
 
 1. CLI flags
 2. Environment variables / Docker-secrets ``_FILE`` variants
-3. User config — ``$XDG_CONFIG_HOME/open-terminal/config.toml``
-   (defaults to ``~/.config/open-terminal/config.toml``)
-4. System config — ``/etc/open-terminal/config.toml``
+3. User config — ``$XDG_CONFIG_HOME/open-terminal-cuda/config.toml``
+   (defaults to ``~/.config/open-terminal-cuda/config.toml``)
+4. System config — ``/etc/open-terminal-cuda/config.toml``
 5. Built-in defaults
 """
 
@@ -21,10 +21,10 @@ def _default_user_config_path() -> Path:
     xdg = os.environ.get("XDG_CONFIG_HOME") or os.path.join(
         os.path.expanduser("~"), ".config"
     )
-    return Path(xdg) / "open-terminal" / "config.toml"
+    return Path(xdg) / "open-terminal-cuda" / "config.toml"
 
 
-_SYSTEM_CONFIG_PATH = Path("/etc/open-terminal/config.toml")
+_SYSTEM_CONFIG_PATH = Path("/etc/open-terminal-cuda/config.toml")
 
 
 def load_config(explicit_path: str | None = None) -> dict:

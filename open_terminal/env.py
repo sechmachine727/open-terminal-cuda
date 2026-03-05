@@ -42,7 +42,7 @@ LOG_DIR = os.environ.get(
                 "XDG_STATE_HOME",
                 os.path.join(os.path.expanduser("~"), ".local", "state"),
             ),
-            "open-terminal",
+            "open-terminal-cuda",
             "logs",
         ),
     ),
