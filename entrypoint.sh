@@ -34,4 +34,4 @@ if [ "$OWNER" != "user" ]; then
     sudo chown -R user:user /home/user 2>/dev/null || true
 fi
 
-exec open-terminal "$@"
+exec open-terminal-cuda "$@"

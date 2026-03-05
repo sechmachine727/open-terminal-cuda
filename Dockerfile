@@ -1,5 +1,10 @@
 FROM nvidia/cuda:13.1.1-cudnn-devel-ubuntu24.04
 
+LABEL org.opencontainers.image.title="open-terminal-cuda" \
+      org.opencontainers.image.description="open-terminal fork with NVIDIA CUDA GPU support — enables GPU-accelerated workloads inside the terminal environment" \
+      com.nvidia.cuda.version="13.1.1" \
+      com.nvidia.cudnn="true"
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PIP_BREAK_SYSTEM_PACKAGES=1
 

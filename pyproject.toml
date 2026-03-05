@@ -1,7 +1,7 @@
 [project]
-name = "open-terminal"
+name = "open-terminal-cuda"
 version = "0.9.0"
-description = "A remote terminal API."
+description = "A remote terminal API with NVIDIA CUDA GPU support."
 readme = "README.md"
 authors = [
     { name = "Timothy Jaeryang Baek", email = "tim@openwebui.com" }
@@ -22,7 +22,7 @@ dependencies = [
 mcp = ["fastmcp>=2.0.0"]
 
 [project.scripts]
-open-terminal = "open_terminal.cli:main"
+open-terminal-cuda = "open_terminal.cli:main"
 
 [build-system]
 requires = ["hatchling"]

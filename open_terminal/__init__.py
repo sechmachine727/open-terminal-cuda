@@ -1,1 +1,1 @@
-"""open-terminal — a barebones terminal interaction API."""
+"""open-terminal-cuda — a barebones terminal interaction API with NVIDIA CUDA GPU support."""

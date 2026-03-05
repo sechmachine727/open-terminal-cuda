@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- 🔍 **Port detection** (`GET /ports`) — discovers TCP ports listening on localhost, scoped to descendant processes of open-terminal (servers started via the terminal or `/execute`). Cross-platform: parses `/proc/net/tcp` on Linux, `lsof` on macOS, `netstat` on Windows. Zero new dependencies.
+- 🔍 **Port detection** (`GET /ports`) — discovers TCP ports listening on localhost, scoped to descendant processes of open-terminal-cuda (servers started via the terminal or `/execute`). Cross-platform: parses `/proc/net/tcp` on Linux, `lsof` on macOS, `netstat` on Windows. Zero new dependencies.
 - 🔀 **Port proxy** (`/proxy/{port}/{path}`) — reverse-proxies HTTP requests to `localhost:{port}`, enabling browser access to servers running inside the terminal environment. Supports all HTTP methods, forwards headers and body, returns 502 on connection refused. Uses the existing `httpx` dependency.
 - 📦 **`utils.port` module** — port detection and process-tree utilities extracted into `open_terminal/utils/port.py` for reusability.
 
@@ -65,13 +65,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- 📄 **Configuration file support** — settings can now be loaded from TOML config files at /etc/open-terminal/config.toml (system-wide) and $XDG_CONFIG_HOME/open-terminal/config.toml (per-user, defaults to ~/.config/open-terminal/config.toml). Supports host, port, api_key, cors_allowed_origins, log_dir, and binary_mime_prefixes. CLI flags and environment variables still take precedence. Use --config to point to a custom config file. This keeps the API key out of ps / htop output.
+- 📄 **Configuration file support** — settings can now be loaded from TOML config files at /etc/open-terminal-cuda/config.toml (system-wide) and $XDG_CONFIG_HOME/open-terminal-cuda/config.toml (per-user, defaults to ~/.config/open-terminal-cuda/config.toml). Supports host, port, api_key, cors_allowed_origins, log_dir, and binary_mime_prefixes. CLI flags and environment variables still take precedence. Use --config to point to a custom config file. This keeps the API key out of ps / htop output.
 
 ## [0.5.0] - 2026-03-02
 
 ### Changed
 
-- 📂 **XDG Base Directory support** — the default log directory moved from ~/.open-terminal/logs to the XDG-compliant path $XDG_STATE_HOME/open-terminal/logs (defaults to ~/.local/state/open-terminal/logs when XDG_STATE_HOME is not set). The OPEN_TERMINAL_LOG_DIR environment variable still overrides the default.
+- 📂 **XDG Base Directory support** — the default log directory moved from ~/.open-terminal/logs to the XDG-compliant path $XDG_STATE_HOME/open-terminal-cuda/logs (defaults to ~/.local/state/open-terminal-cuda/logs when XDG_STATE_HOME is not set). The OPEN_TERMINAL_LOG_DIR environment variable still overrides the default.
 
 ## [0.4.3] - 2026-03-02
 
@@ -165,7 +165,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
-- 🤖 **Optional MCP server mode** via open-terminal mcp, exposing all endpoints as MCP tools for LLM agent integration. Supports stdio and streamable-http transports. Install with pip install open-terminal[mcp].
+- 🤖 **Optional MCP server mode** via open-terminal-cuda mcp, exposing all endpoints as MCP tools for LLM agent integration. Supports stdio and streamable-http transports. Install with pip install open-terminal-cuda[mcp].
 
 ## [0.2.2] - 2026-02-15
 

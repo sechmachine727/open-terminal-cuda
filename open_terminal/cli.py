@@ -6,7 +6,7 @@ import uvicorn
 
 @click.group()
 def main():
-    """open-terminal — terminal interaction API"""
+    """open-terminal-cuda — terminal interaction API with NVIDIA CUDA GPU support"""
     pass
 
 
@@ -132,7 +132,7 @@ def mcp(
     config_path: str | None,
     cwd: str | None,
 ):
-    """Start the MCP server (requires 'pip install open-terminal[mcp]')."""
+    """Start the MCP server (requires 'pip install open-terminal-cuda[mcp]')."""
     from open_terminal import config
 
     cfg = config.init(config_path)
@@ -148,7 +148,7 @@ def mcp(
     except ImportError:
         click.echo(
             "Missing MCP dependencies. Install with:\n"
-            "  pip install open-terminal[mcp]",
+            "  pip install open-terminal-cuda[mcp]",
             err=True,
         )
         raise SystemExit(1)

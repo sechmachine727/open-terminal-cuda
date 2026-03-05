@@ -69,7 +69,7 @@ async def verify_api_key(
 app = FastAPI(
     title="Open Terminal",
     description="A remote terminal API.",
-    version=_pkg_version("open-terminal"),
+    version=_pkg_version("open-terminal-cuda"),
 )
 app.add_middleware(
     CORSMiddleware,
@@ -1146,7 +1146,7 @@ from open_terminal.utils.port import detect_listening_ports, get_descendant_pids
 async def list_ports():
     """Return TCP ports currently listening on localhost.
 
-    Only includes ports owned by descendant processes of open-terminal
+    Only includes ports owned by descendant processes of open-terminal-cuda
     (i.e. things started via the terminal or /execute).
     """
     all_ports = await asyncio.to_thread(detect_listening_ports)
