@@ -67,8 +67,8 @@ async def verify_api_key(
 
 
 app = FastAPI(
-    title="Open Terminal",
-    description="A remote terminal API.",
+    title="Open Terminal CUDA",
+    description="A remote terminal API with NVIDIA CUDA GPU support.",
     version=_pkg_version("open-terminal-cuda"),
 )
 app.add_middleware(
