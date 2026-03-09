@@ -24,6 +24,15 @@ That's it — you're up and running at `http://localhost:8000`.
 > [!TIP]
 > If you don't set an API key, one is generated automatically. Grab it with `docker logs open-terminal`.
 
+#### Updating
+
+```bash
+docker pull ghcr.io/open-webui/open-terminal
+docker rm -f open-terminal
+```
+
+Then re-run the `docker run` command above.
+
 ### Bare Metal
 
 No Docker? No problem. Open Terminal is a standard Python package:
@@ -58,6 +67,20 @@ docker run -d --name open-terminal -p 8000:8000 \
 
 > [!NOTE]
 > Packages are installed each time the container starts, so startup will take longer with large package lists. For heavy customization, build a custom image instead.
+
+#### Docker Access
+
+The image includes the Docker CLI, Compose, and Buildx. To let agents build images, run containers, etc., mount the host's Docker socket:
+
+```bash
+docker run -d --name open-terminal -p 8000:8000 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v open-terminal:/home/user \
+  ghcr.io/open-webui/open-terminal
+```
+
+> [!CAUTION]
+> Mounting the Docker socket gives the container full access to the host's Docker daemon. Only do this in trusted environments.
 
 For full control, fork the repo, edit the [Dockerfile](Dockerfile), and build your own image:
 
@@ -110,15 +133,16 @@ Users can connect their own Open Terminal instance from their user settings. Thi
 2. Add the terminal **URL** and **API key**
 3. Enable the connection
 
-### System-Level Connection
+### System-Level Connection (Multi-User)
 
-Admins can configure Open Terminal connections for their users from the admin panel. Multiple terminals can be set up with access controlled at the user or group level. Requests are proxied through the Open WebUI **backend**, so the terminal only needs to be reachable from the server.
+Admins can configure Open Terminal connections for all their users from the admin panel. No additional services required. Multiple terminals can be set up with access controlled at the user or group level. Requests are proxied through the Open WebUI **backend**, so the terminal only needs to be reachable from the server.
 
 1. Go to **Admin Settings → Integrations → Open Terminal**
 2. Add the terminal **URL** and **API key**
 3. Enable the connection
 
-For isolated, per-user terminal containers, see **[Terminals](https://github.com/open-webui/terminals)**, which requires an enterprise license for production use.
+> [!TIP]
+> You can set up multi-user access yourself by running one Open Terminal per user or group. For automatic per-user container isolation, the **[Terminals](https://github.com/open-webui/terminals)** add-on is also available.
 
 ## API Docs
 

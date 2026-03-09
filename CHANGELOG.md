@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.10.2] - 2026-03-06
+
+### Added
+
+- 🐳 **Docker CLI, Compose, and Buildx** bundled in the container image via [get.docker.com](https://get.docker.com). Mount the host's Docker socket (`-v /var/run/docker.sock:/var/run/docker.sock`) to let agents clone repos, build images, and run containers. The entrypoint automatically fixes socket group permissions so `docker` commands work without `sudo`.
+
 ## [0.10.1] - 2026-03-06
 
 ### Fixed

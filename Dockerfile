@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # Data processing
     jq xmlstarlet sqlite3 \
     # Media & documents
-    ffmpeg pandoc imagemagick \
+    ffmpeg pandoc imagemagick texlive-latex-base \
     # Compression
     zip unzip tar gzip bzip2 xz-utils zstd p7zip-full \
     # System
@@ -39,6 +39,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/*
 
+# Docker CLI + Compose + Buildx (mount socket at runtime for access)
+RUN curl -fsSL https://get.docker.com | sh
+
 WORKDIR /app
 
 RUN pip install --no-cache-dir \
@@ -48,7 +51,9 @@ RUN pip install --no-cache-dir \
     requests beautifulsoup4 lxml \
     sqlalchemy psycopg2-binary \
     pyyaml toml jsonlines \
-    tqdm rich
+    tqdm rich \
+    openpyxl weasyprint \
+    python-docx python-pptx pypdf csvkit
 
 COPY . .
 RUN pip install --no-cache-dir .

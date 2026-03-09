@@ -44,6 +44,16 @@ if [ ! -f "$HOME/.profile" ]; then
 fi
 mkdir -p "$HOME/.local/bin"
 
+# Docker socket access — add user to the socket's group if mounted
+if [ -S /var/run/docker.sock ]; then
+    SOCK_GID=$(stat -c '%g' /var/run/docker.sock)
+    if ! getent group "$SOCK_GID" > /dev/null 2>&1; then
+        sudo groupadd -g "$SOCK_GID" docker-host
+    fi
+    SOCK_GROUP=$(getent group "$SOCK_GID" | cut -d: -f1)
+    sudo usermod -aG "$SOCK_GROUP" user
+fi
+
 # Auto-install system packages
 if [ -n "${OPEN_TERMINAL_PACKAGES:-}" ]; then
     echo "Installing system packages: $OPEN_TERMINAL_PACKAGES"
