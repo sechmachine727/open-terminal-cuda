@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     procps htop lsof strace sysstat \
     sudo tmux screen \
     ca-certificates gnupg apt-transport-https \
+    # Capabilities (needed for setcap on Python binary)
+    libcap2-bin \
     && rm -rf /var/lib/apt/lists/*
 
 # Node.js (LTS)
@@ -49,15 +51,12 @@ RUN pip install --no-cache-dir \
     python-docx python-pptx pypdf csvkit
 
 COPY . .
-RUN pip install --no-cache-dir .
+# setcap MUST run in the same layer as the Python binary to avoid
+# overlay2 copy-up corruption of libpython3.12.so ("file too short").
+RUN pip install --no-cache-dir . \
+    && setcap cap_setgid+ep $(readlink -f $(which python3))
 
 RUN useradd -m -s /bin/bash user && echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-# Grant CAP_SETGID to Python so the server can refresh supplementary groups
-# at runtime when provisioning new users in multi-user mode.
-RUN apt-get update && apt-get install -y --no-install-recommends libcap2-bin \
-    && rm -rf /var/lib/apt/lists/* \
-    && setcap cap_setgid+ep $(readlink -f $(which python3))
 
 USER user
 ENV SHELL=/bin/bash
