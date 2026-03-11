@@ -143,7 +143,10 @@ Admins can configure Open Terminal connections for all their users from the admi
 
 #### Built-in Multi-User Isolation
 
-For shared deployments, enable per-user isolation inside a single container — no extra services needed:
+> [!CAUTION]
+> Single-container multi-user mode is **not designed for production multi-user deployments**. All users share the same kernel, network, and system resources with no hard isolation boundaries between them. If one user's process misbehaves, it can affect every other user on the system. This mode exists as a lightweight convenience for small, trusted groups — not as a security model you should rely on.
+
+For small, trusted deployments you can enable per-user isolation inside a single container:
 
 ```bash
 docker run -d --name open-terminal -p 8000:8000 \
@@ -152,10 +155,7 @@ docker run -d --name open-terminal -p 8000:8000 \
   ghcr.io/open-webui/open-terminal
 ```
 
-Each `X-User-Id` header maps to a dedicated Linux user with its own home directory. Files, commands, terminals, and port visibility are all isolated via standard Unix permissions. Network ports share a single namespace (visibility is filtered, but users can technically reach each other's services).
-
-> [!WARNING]
-> Multi-user mode provides process-level isolation via Unix permissions within a shared container. Users share the same kernel, network stack, and installed packages. It is not suitable for large or untrusted deployments and should use per-container isolation for stronger security boundaries.
+Each user automatically gets a dedicated Linux account with its own home directory. Files, commands, and terminals are isolated between users via standard Unix permissions.
 
 ## API Docs
 
