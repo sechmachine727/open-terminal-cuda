@@ -418,7 +418,7 @@ async def list_files(
     "/files/read",
     operation_id="read_file",
     summary="Read a file",
-    description="Return the contents of a file. Text files return JSON with a content string. Supported binary types (configurable, default: image/*) return the raw binary with the appropriate Content-Type. Unsupported binary types are rejected. Optionally specify a line range for text files. This returns file content to you but does not show anything to the user. Use display_file to let the user see a file.",
+    description="Read a file and return its contents. Supports text files and images (PNG, JPEG, WebP, etc.). For text files you can optionally request a specific line range. Images are returned as binary so you can view and analyze them directly. Use display_file to show a file to the user.",
     dependencies=[Depends(verify_api_key)],
     responses={
         404: {"description": "File not found."},
@@ -429,13 +429,14 @@ async def list_files(
 async def read_file(
     path: str = Query(..., description="Path to the file to read."),
     start_line: Optional[int] = Query(
-        None, description="First line to return (1-indexed, inclusive).", ge=1
+        None, description="First line to return (1-indexed, inclusive). Omit to start from the beginning.", ge=1
     ),
     end_line: Optional[int] = Query(
-        None, description="Last line to return (1-indexed, inclusive).", ge=1
+        None, description="Last line to return (1-indexed, inclusive). Omit to read to the end.", ge=1
     ),
     fs: UserFS = Depends(get_filesystem),
 ):
+
     target = fs.resolve_path(path)
     if not await fs.isfile(target):
         raise HTTPException(status_code=404, detail="File not found")
